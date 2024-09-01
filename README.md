@@ -25,8 +25,8 @@ python main.py
 
 house_prices/
 │
-├── main.py                 # Main script to run the project
-├── house_prices.csv        # Dataset containing house features and prices
-├── requirements.txt        # List of dependencies
-└── README.md               # Project documentation (this file)
+├── main.py                
+├── house_prices.csv       
+├── requirements.txt        
+└── README.md   
 
