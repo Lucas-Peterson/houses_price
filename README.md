@@ -27,6 +27,6 @@ house_prices/
 
 ├── main.py                
 ├── house_prices.csv       
-├── requirements.txt        
+├── requirements.txt       
 └── README.md   
 
