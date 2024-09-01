@@ -24,6 +24,7 @@ python main.py
 ## Structure
 
 house_prices/
+
 │
 ├── main.py                
 ├── house_prices.csv       
