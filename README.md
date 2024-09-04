@@ -14,7 +14,10 @@ To run this project locally, you need to have Python installed. You also need to
 
 2. **Install the dependencies**:
    pip install -r requirements.txt
-   go to kaggle.com and go to housing-prices-dataset from yasserh, then add his data-set to your project
+
+3. **Install the dataset**
+   go to kaggle and find a good dataset or use dataset of this guy => https://www.kaggle.com/datasets/syuzai/perth-house-prices
+   P.S. Don't forget to change the rows name on the 14 line
 
 
 ## Usage 
