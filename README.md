@@ -1,35 +1,33 @@
-# House Price Prediction using Random Forest and XGBoost
+# House Prices Prediction using Random Forest
 
-## Project Description
+This project predicts house prices using the `RandomForestRegressor` model from the `sklearn` library. It processes the data, removes unnecessary columns, fills missing values, and outputs feature importance to help visualize which factors most influence house prices.
 
-This project focuses on predicting house prices based on various features of the properties using machine learning models. The main objective is to build and compare the performance of two regression models: **Random Forest** and **XGBoost**. These models will be trained on a dataset containing different attributes of houses, such as square footage, number of rooms, location, and more.
+## Features
 
-## Installation
+- Data preprocessing: Handles missing values and removes unnecessary columns.
+- House price prediction using the Random Forest algorithm.
+- Visualization of feature importance.
 
-To run this project locally, you need to have Python installed. You also need to install the required libraries. You can do this by following the steps below:
+## Prerequisites
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/house_prices.git
+Before running the code, ensure you have the following installed:
 
-2. **Install the dependencies**:
-   pip install -r requirements.txt
+- Python 3.x
+- Required Python packages:
+  - `pandas`
+  - `scikit-learn`
+  - `matplotlib`
 
-3. **Install the dataset**
-   go to kaggle and find a good dataset or use dataset of this guy => https://www.kaggle.com/datasets/syuzai/perth-house-prices
-   P.S. Don't forget to change the rows name on the 14 line
+You can install the required libraries using pip:
 
+```bash
+pip install pandas scikit-learn matplotlib
 
-## Usage 
+```
+## Data
 
-python main.py
+train.csv: Training data with house features and prices.
 
-## Structure
+test.csv: Test data for evaluating the model performance.
 
-house_prices/
-
-├── main.py                
-├── house_prices.csv       
-├── requirements.txt         
-└── README.md   
-
+Both CSV files should contain a price column representing house prices and other feature columns like house size, number of rooms, etc. The columns size_units and lot_size_units will be dropped during preprocessing.
