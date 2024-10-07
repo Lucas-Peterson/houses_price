@@ -1,48 +1,55 @@
 import pandas as pd
-import xgboost as xgb
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.impute import SimpleImputer
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import matplotlib.pyplot as plt
+from sklearn.impute import SimpleImputer
+from sklearn.metrics import mean_absolute_error, mean_squared_error
 
+# Load the datasets
+train_data = pd.read_csv('/Users/V/PycharmProjects/wine/train.csv')
+test_data = pd.read_csv('/Users/V/PycharmProjects/wine/test.csv')
 
-data = pd.read_csv('house_prices.csv')
+# Remove unnecessary columns and fill missing values
+columns_to_drop = ['size_units', 'lot_size_units']
+train_data = train_data.drop(columns=columns_to_drop)
+test_data = test_data.drop(columns=columns_to_drop)
 
-print(data.info())
-
-X = data.drop('SalePrice', axis=1)
-y = data['SalePrice']
-
+# Handle missing values using SimpleImputer with median strategy
 imputer = SimpleImputer(strategy='median')
-X = imputer.fit_transform(X)
+X_train = train_data.drop('price', axis=1)
+y_train = train_data['price']
+X_train = imputer.fit_transform(X_train)
 
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
+X_test = test_data.drop('price', axis=1)
+y_test = test_data['price']
+X_test = imputer.transform(X_test)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-
+# Train Random Forest model
 rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
 rf_model.fit(X_train, y_train)
 
-
+# Predictions using Random Forest
 y_pred_rf = rf_model.predict(X_test)
 
-
+# Calculate Mean Absolute Error and Mean Squared Error
 mae_rf = mean_absolute_error(y_test, y_pred_rf)
 mse_rf = mean_squared_error(y_test, y_pred_rf)
-r2_rf = r2_score(y_test, y_pred_rf)
 
-print(f"Random Forest - MAE: {mae_rf}, MSE: {mse_rf}, R2: {r2_rf}")
+# Calculate RAE (Relative Absolute Error)
+numerator = sum(abs(y_test - y_pred_rf))
+denominator = sum(abs(y_test - y_test.mean()))
+rae_rf = numerator / denominator
 
-xgb_model = xgb.XGBRegressor(n_estimators=100, random_state=42)
-xgb_model.fit(X_train, y_train)
+# Print evaluation metrics
+print(f"Random Forest - MAE: {mae_rf}, MSE: {mse_rf}, RAE: {rae_rf}")
 
-y_pred_xgb = xgb_model.predict(X_test)
+# Feature importance
+importances = rf_model.feature_importances_
+sorted_indices = importances.argsort()
 
-mae_xgb = mean_absolute_error(y_test, y_pred_xgb)
-mse_xgb = mean_squared_error(y_test, y_pred_xgb)
-r2_xgb = r2_score(y_test, y_pred_xgb)
-
-print(f"XGBoost - MAE: {mae_xgb}, MSE: {mse_xgb}, R2: {r2_xgb}")
+# Plot feature importance
+plt.figure(figsize=(10, 6))
+plt.barh(train_data.columns.drop('price')[sorted_indices], importances[sorted_indices], color='blue')
+plt.xlabel('Importance')
+plt.title('Feature Importance from Random Forest')
+plt.tight_layout()
+plt.show()
