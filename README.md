@@ -1,5 +1,8 @@
 # House Prices Prediction using Random Forest
 
+## Dataset ---> https://www.kaggle.com/datasets/samuelcortinhas/house-price-prediction-seattle
+
+
 This project predicts house prices using the `RandomForestRegressor` model from the `sklearn` library. It processes the data, removes unnecessary columns, fills missing values, and outputs feature importance to help visualize which factors most influence house prices.
 
 ## Features
